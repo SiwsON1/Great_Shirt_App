@@ -11,6 +11,10 @@ function getProducts() {
       rating: 5,
       image: 'Tshirt.jpg',
       description: 'Example description for Tshirt1',
+      type: 'T-shirt',
+      color: 'white',
+      material: 'cotton',
+      brand: 'Nike',
     },
     {
       id: 'fd105551-0f0d-4a9f-bc41-c559c8a17221',

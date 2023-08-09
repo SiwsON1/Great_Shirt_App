@@ -9,6 +9,7 @@ import {loadProdRequest} from "./redux/productsRedux";
 import Container from "./components/views/Container/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CartLayout from "./components/features/Cart/Cart";
+import SingleProduct from "./components/pages/SingleProduct/SingleProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
          <CartLayout />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<SingleProduct />} />
         </Routes>
     </Container>
   );

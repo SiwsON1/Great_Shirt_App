@@ -19,6 +19,13 @@ export const startRequest = payload => ({ payload, type: START_REQUEST });
 export const endRequest = payload => ({ payload, type: END_REQUEST });
 export const errorRequest = payload => ({ payload, type: ERROR_REQUEST });
 
+export const getProductAmountById = (state, productId) => {
+  const productInCart = state.order.cart.find(item => item.product.id === productId);
+  return productInCart ? productInCart.amount : 0;
+};
+
+
+
 export const loadProducts = payload => ({ payload, type: LOAD_PRODUCTS });
 
 /* INITIAL STATE */

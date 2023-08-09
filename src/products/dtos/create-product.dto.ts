@@ -33,4 +33,24 @@ export class ProductDTO {
   @IsString()
   @Length(0, 350)
   description: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(0, 20)
+  type: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(0, 20)
+  color: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(0, 30)
+  material: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(0, 30)
+  brand: string;
 }

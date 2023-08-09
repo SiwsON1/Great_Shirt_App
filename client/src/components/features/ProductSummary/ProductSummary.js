@@ -5,7 +5,7 @@ import Currency from "../Currency/Currency";
 import styles from './ProductSummary.module.scss';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addOrder } from '../../../redux/orderRedux';
+import { addOrder, addToCart } from '../../../redux/orderRedux';
 import { getOrders } from '../../../redux/orderRedux';
 import { useSelector } from 'react-redux';
 import { getProductById } from '../../../redux/productsRedux';
@@ -32,16 +32,13 @@ const ProductSummary = ({ name, description, id, image, price }) => {
     <Navigate to="/" />;
   };
 
+  const viewHandler = () =>{
+  <Navigate to={"/product/" + id} />;
+  }
+
   const orderHandler = (e) => {
     e.preventDefault();
-
-    const orderItem = {
-      id: uuidv4(),
-      product: {...product},
-      amount: 1,
-    };
-
-    dispatch(addOrder(orderItem));
+    dispatch(addToCart(product, 1));
   }
 
   return (
@@ -49,19 +46,18 @@ const ProductSummary = ({ name, description, id, image, price }) => {
       onClick={handleClick}
       className="container bg-white group cursor-pointer rounded-3 border p-3 my-4"
     >
-      {/* Image & actions */}
       <div className="ratio ratio-1x1 rounded-3 bg-gray-100 relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
   <img
     src={`./images/products/${image}`}
     alt=""
     fill
     style={{objectFit: "cover"}}
-    className="ratio ratio-1x1 object-cover img-fluid rounded-2"
+    className="ratio ratio-1x1 img-fluid rounded-2"
   />
  {isHovered && (
     <div className="d-flex align-items-end justify-content-center">
       <div className="d-flex justify-content-center gap-2 mb-2">
-        <button className="btn btn-light">
+        <button onClick={viewHandler}  className="btn btn-light">
           <Expand size={20} className="text-muted" />
         </button>
         <button onClick={e => orderHandler(e)} className="btn btn-light">

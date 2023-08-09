@@ -1,10 +1,10 @@
-import React, { useEffect, useState, } from "react";
+import React from "react";
 import { ShoppingCart } from "lucide-react";
-import { useNavigate} from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
+import { getTotalProductsInCart } from "../../../redux/orderRedux";
 import { openCart } from "../../../redux/orderRedux";
+
 const NavbarActions = () => {
 
 
@@ -14,7 +14,7 @@ const NavbarActions = () => {
   const handleOpenCart = () => {
     dispatch(openCart(true));
   };
-
+  const totalProductsInCart = useSelector(getTotalProductsInCart);
 
 
 
@@ -29,7 +29,7 @@ const NavbarActions = () => {
           color="white"
         />
         <span className="ms-2 fs-sm font-weight-bold text-white">
-          0
+          {totalProductsInCart}
         </span>
       </button>
     </div>

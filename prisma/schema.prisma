@@ -16,7 +16,15 @@ model Product {
   price Int
   rating Int
   image String
+  imageTop String
+  imageBottom String
+  imageLeft String
+  imageRight String
   description String
+  type String
+  color String
+  material String
+  brand String
   orders Order[]
 
   createdAt  DateTime @default(now())
