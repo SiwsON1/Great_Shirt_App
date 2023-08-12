@@ -11,38 +11,47 @@ datasource db {
 }
 
 model Product {
-  id String @id @default(uuid())
-  name String @unique
-  price Int
-  rating Int
-  image String
-  imageTop String
+  id         String     @id @default(uuid())
+  name       String     @unique
+  price      Int
+  rating     Int
+  image      String
+  imageTop   String
   imageBottom String
-  imageLeft String
+  imageLeft  String
   imageRight String
   description String
-  type String
-  color String
-  material String
-  brand String
-  orders Order[]
+  type       String
+  color      String
+  material   String
+  brand      String
+  orderItems OrderItem[]
 
   createdAt  DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  updatedAt  DateTime @updatedAt
 }
 
-model Order {
-  orderId String  @id @unique @default(uuid())
-  amount Int
-  email String
-  name String
-  address String
-  payment String
-  delivery String
-  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  productId String?
+model OrderItem {
+  id         String  @id @default(uuid())
+  quantity   Int     
+  order      Order   @relation(fields: [orderId], references: [orderId])
+  orderId    String
+  product    Product @relation(fields: [productId], references: [id])
+  productId  String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+model Order {
+  orderId    String      @id @unique @default(uuid())
+  amount     Int
+  email      String
+  name       String
+  address    String
+  payment    String
+  delivery   String
+  orderItems OrderItem[]  // Nowa relacja
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

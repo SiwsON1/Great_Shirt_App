@@ -7,20 +7,33 @@ import { closeCart } from "../../../redux/orderRedux";
 import { getCartOpen } from "../../../redux/orderRedux";
 import { getAllProductsInCart } from "../../../redux/orderRedux";
 import Currency from "../Currency/Currency";
-import { X } from 'lucide-react';
+import { X, Pencil } from 'lucide-react';
 import { removeFromCart } from "../../../redux/orderRedux";
 import { getOnlyProductsInCart } from "../../../redux/orderRedux";
 import { getTotalProductsInCart } from "../../../redux/orderRedux";
+import { useState } from "react";
 import { getTotalCartValue } from "../../../redux/orderRedux";
+import { Modal } from "react-bootstrap";
+import styles from './Cart.module.scss';
+import { getProductAmountInCart } from "../../../redux/orderRedux";
+import ProductInCart from "../ProductsInCart/ProductsInCart";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
 
   const cartOpen = useSelector(getCartOpen);
   const productsInCart = useSelector(getOnlyProductsInCart);
-
+  const [activeNoteInputId, setActiveNoteInputId] = useState(null);
   const totalProductsInCart = useSelector(getTotalProductsInCart);
   const totalCartValue = useSelector(getTotalCartValue);
+  const [showModal, setShowModal] = useState(false);
+  const [currentNote, setCurrentNote] = useState("");
+  const amount = useSelector((state) => getProductAmountInCart(state, productsInCart.id));
+  console.log(productsInCart)
+  const [quantity, setQuantity] = useState(1|| amount);
+
+  const navigate = useNavigate();
 
   const handleCloseCart = () => {
     dispatch(closeCart());
@@ -31,9 +44,35 @@ const Cart = () => {
 }
 
 
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setCurrentNote(""); // reset notatki
+  };
+
+  const handleAddNoteClick = (productId) => {
+    setActiveNoteInputId(productId);
+    setShowModal(true);
+  };
+
+  const handleConfirmNote = () => {
+    console.log('Notatka dodana:', currentNote);
+    handleCloseModal();
+    // Tutaj możesz też przekazać notatkę do store Redux lub gdziekolwiek indziej
+  };
+
+
+  const proceedToCheckout = (e) => {
+    e.preventDefault();
+    //dispatch(checkout({cartProducts: cartProducts }));
+    navigate('/order');
+}
+
+
+
   return (
     <>
-      <Offcanvas show={cartOpen} onHide={handleCloseCart} placement="end">
+      <Offcanvas show={cartOpen} onHide={handleCloseCart} placement="end" className={styles.customWidth}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Cart</Offcanvas.Title>
         </Offcanvas.Header>
@@ -41,34 +80,11 @@ const Cart = () => {
           <Stack gap={2}>
             {productsInCart.length > 0 ? (
               productsInCart.map((product) => (
-                <Stack key={product.id} direction="horizontal">
-                  <img
-                    src={`./images/products/${product.image}`}
-                    alt={product.name}
-                    fill
-                    width={100}
-                    height={100}
-                    style={{ objectFit: "cover",
-                             objectPosition: "center",
-                          }}
-                  />
-                  <Container>
-                    <Stack gap={2}>
-                      <div>{product.name}</div>
-                      <div>
-                      <Currency value={product.price} />
-                      </div>
-                    </Stack>
-                  </Container>
-                  <div className="absolute right-4 top-4">
-                  <button
-                    onClick={() => handleRemoveFromCart(product.id)}
-                    className="rounded-circle d-flex align-items-center justify-content-center bg-white border shadow p-2"
-                  >
-                    {<X size={15} />}
-                  </button>
-                  </div>
-                </Stack>
+                <ProductInCart
+                key={product.id}
+                product={product}
+            />
+
               ))
             ) : (
               <div>No products in cart</div>
@@ -84,11 +100,12 @@ const Cart = () => {
              Total Price: <span className="text-secondary"><Currency value={totalCartValue} /></span>
             </div>
             {totalProductsInCart > 0 && (
-              <Button >Pay</Button>
+              <Button onClick={proceedToCheckout} >Pay</Button>
             )}
           </Stack>
         </Offcanvas.Body>
       </Offcanvas>
+
     </>
   );
 };

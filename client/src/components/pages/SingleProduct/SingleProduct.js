@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../../redux/productsRedux';
-import { useSelector } from 'react-redux';
 import { Star } from 'lucide-react';
 import styles from './SingleProduct.module.scss';
 import { Button } from "react-bootstrap"
-import { decrementAmount, getTotalProductsInCart, incrementAmount } from '../../../redux/orderRedux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addToCart } from '../../../redux/orderRedux';
+import { useEffect } from 'react';
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -15,6 +14,8 @@ const SingleProduct = () => {
   console.log(product);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [mainImageSrc, setMainImageSrc] = useState(null);
+
 
 
   const handleIncrement = () => {
@@ -28,6 +29,15 @@ const orderHandler = (e) => {
 const handleDecrement = () => {
   setQuantity(prevQuantity => prevQuantity > 1 ? prevQuantity - 1 : prevQuantity);
 }
+const changeImage = (src) => {
+  setMainImageSrc(src);
+};
+useEffect(() => {
+  if (product && product.image) {
+      setMainImageSrc(`../images/products/${product.image}`);
+  }
+}, [product]);
+
   if (!product) {
     return <div>Loading...</div>; // lub inny komponent / wiadomość, który chcesz wyświetlić w tym przypadku
   }
@@ -39,7 +49,7 @@ const handleDecrement = () => {
         <div className="d-flex flex-column justify-content-center">
           <div className={styles.main_image}>
             <img
-              src={`../images/products/${product.image}`}
+              src={mainImageSrc}
               alt={product.name}
               width="350"
             />
@@ -48,32 +58,48 @@ const handleDecrement = () => {
             <ul id="thumbnail">
               <li>
                 <img
-                  onclick="changeImage(this)"
-                  src="https://i.imgur.com/TAzli1U.jpg"
+                  onClick={() => changeImage(`../images/products/${product.imageTop}`)}
+                  src={`../images/products/${product.imageTop}`}
                   width="70"
+                  alt={product.name}
                 />
               </li>
               <li>
                 <img
-                  onclick="changeImage(this)"
-                  src="https://i.imgur.com/w6kEctd.jpg"
+                  onClick={() => changeImage(`../images/products/${product.imageBottom}`)}
+                  src={`../images/products/${product.imageBottom}`}
                   width="70"
+                  alt={product.name}
                 />
               </li>
               <li>
                 <img
-                  onclick="changeImage(this)"
-                  src="https://i.imgur.com/L7hFD8X.jpg"
+                  onClick={() => changeImage(`../images/products/${product.imageLeft}`)}
+                  src={`../images/products/${product.imageLeft}`}
                   width="70"
+                  alt={product.name}
                 />
               </li>
               <li>
                 <img
-                  onclick="changeImage(this)"
-                  src="https://i.imgur.com/6ZufmNS.jpg"
+                  onClick={() => changeImage(`../images/products/${product.imageRight}`)}
+                  src={`../images/products/${product.imageRight}`}
                   width="70"
+                  alt={product.name}
                 />
               </li>
+                {
+            mainImageSrc !== null && mainImageSrc !== `../images/products/${product.image}` && (
+              <li>
+                <img
+                  onClick={() => changeImage(`../images/products/${product.image}`)}
+                  src={`../images/products/${product.image}`}
+                  width="70"
+                  alt={product.name}
+                />
+              </li>
+            )
+          }
             </ul>
           </div>
         </div>

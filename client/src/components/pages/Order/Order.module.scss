@@ -1,0 +1,140 @@
+
+
+    h3 {
+        margin-bottom: 30px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid black;
+    }
+
+    .form {
+        display: flex;
+    }
+
+    .formCol {
+        margin-right: 20px;
+    }
+
+    .input {
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+
+    .inputLong {
+        width: 85%;
+        margin-bottom: 1rem;
+    }
+
+    .summary {
+        border: 1px solid white;
+        margin-bottom: 10px;
+    }
+
+    .summaryCol {
+        align-items: center;
+        display: flex;
+        text-align: center;
+    }
+
+    .image {
+        background-color: white;
+
+        img {
+            width: 75px;
+            object-fit: cover;
+            margin-block: 7px;
+          }
+        }
+
+        .title {
+            font-size: 11px;
+            text-transform: none;
+        }
+
+        .mark {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .totalAmount {
+            margin-block: 25px;
+            align-items: center;
+
+            .infoPrice {
+                font-size: 18px;
+            }
+
+            .total {
+                display: flex;
+                justify-content: end;
+                font-weight: bold;
+                font-size: 40px;
+            }
+        }
+
+        .comment {
+            margin-block: 25px;
+            font-size: 12px;
+            justify-content: end;
+            display: flex;
+        }
+
+        .button {
+            cursor: pointer;
+            background-color: white;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 1px;
+            text-transform: uppercase;
+
+            &:hover {
+              background-color: white;
+              color: white;
+              border: 3px solid;
+            }
+          }
+
+
+@media (max-width: 988px) {
+    .container {
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .input {
+            width: 50%;
+            margin-bottom: 2rem;
+            margin: 0 auto;
+        }
+
+        .inputLong {
+            width: 50%;
+            margin-bottom: 2rem;
+            margin: 0 auto;
+        }
+
+        .inputShort {
+            width: 50%;
+            margin-bottom: 2rem;
+            margin: 0 auto;
+        }
+
+        .formCol {
+            margin-bottom: 75px;
+        }
+
+        .totalAmount {
+            .total {
+                justify-content: center;
+            }
+        }
+
+        .button {
+            width: 50%;
+        }
+    }
+}
