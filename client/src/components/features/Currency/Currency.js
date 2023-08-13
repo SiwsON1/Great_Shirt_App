@@ -17,7 +17,7 @@ const Currency = ({ value = 0 }) => {
   }
 
   return (
-    <div className="font-semibold">
+    <div className="font-semibold text-success">
       {formatter.format(Number(value))}
     </div>
   );

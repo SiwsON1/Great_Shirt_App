@@ -22,7 +22,7 @@ function App() {
 
   return (
       <Container>
-         <Header />
+        <Header />
          <CartLayout />
         <Routes>
           <Route path="/" element={<Home />} />

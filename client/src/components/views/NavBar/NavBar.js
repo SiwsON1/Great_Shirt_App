@@ -8,7 +8,7 @@ import Container from '../Container/Container';
 const NavBar = () => {
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-light shadow-sm mb-3">
+    <Navbar collapseOnSelect expand="lg" className="bg-light shadow-sm mb-3" fixed="top">
       <Container>
         <Nav.Link className={styles.navlink} variant="dark" href="/"><h3 className="font-bold text-xl">GSA</h3></Nav.Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

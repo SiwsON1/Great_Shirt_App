@@ -1,0 +1,60 @@
+.carousel {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 50%;
+    position: relative;
+
+    img {
+        height: 460px;
+        object-fit: cover;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 60%; // możesz dostosować tę wartość według potrzeb
+        background-color: rgba(0, 0, 0, 0.8); // półprzezroczyste tło dla napisów
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        width: 100%;
+
+        h2, p, button {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: white;
+            opacity: 0.75;
+            border: none; // usuwa domyślne obramowanie przycisku bootstrap
+
+            &:hover {
+                opacity: 1;
+                font-weight: 600;
+            }
+        }
+    }
+}
+.textContainer {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+
+    .actionText {
+        text-decoration: underline;
+        cursor: pointer;  // jeśli tekst ma być klikalny
+        font-weight: bold;  // pogrubienie tekstu
+    }
+}
