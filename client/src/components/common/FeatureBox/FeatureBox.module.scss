@@ -1,0 +1,99 @@
+.root {
+    border: 1px solid #b6b6b6; // $feature-box-border
+    text-align: center;
+    margin-top: 40px;
+
+
+    .iconWrapper {
+      height: 60px;
+      transform: translateY(-50%);
+      color: #2a2a2a; // $feature-box-icon
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      .icon {
+        position: relative;
+        z-index: 9;
+      }
+
+      &::before {
+        content: "";
+        border: 1px solid #b6b6b6; // $feature-box-circle-border
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 76px;
+        height: 76px;
+        border-radius: 100%;
+        background-color: #ffffff; // $feature-box-whole-circle-bg
+        z-index: -1;
+      }
+
+      &::after {
+        content: "";
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #b6b6b6; // $feature-box-middle-circle-bg
+      }
+    }
+
+    .content {
+      text-transform: uppercase;
+      color: rgb(42, 42, 42); // $feature-box-text
+      margin-top: -0.5rem;
+      letter-spacing: 1px;
+      font-weight: 300;
+
+      h5 {
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    &.active {
+      .iconWrapper {
+        color: #ffffff; // $feature-box-active-icon
+
+        &::after {
+          background-color: #d58e32; // $feature-box-active
+          border-color: #d58e32; // $feature-box-active-middle-circle
+        }
+      }
+
+      .content {
+        color: #d58e32; // $feature-box-content-active
+      }
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none!important;
+
+    &:hover {
+      text-decoration: none;
+      .iconWrapper {
+        color: #ffffff; // $feature-box-link-icon-hover
+        &::after {
+          background-color: #d58e32; // $feature-box-link-icon-bg-hover-after
+          border-color: #d58e32; // $feature-box-link-icon-border-hover-after
+        }
+      }
+      .content {
+        color: #d58e32; // $feature-box-content-hover
+      }
+    }
+  }
+
+  @media (max-width: 990px) {
+    .content h5 {
+      font-size: 13px;
+    }
+  }

@@ -52,20 +52,29 @@ const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 const PURCHASE = createActionName('PURCHASE');
 /* THUNKS */
 
-export const purchaseRequest = (order) => {
+export const purchaseRequest = (orderData) => {
   return async dispatch => {
 
     dispatch(startRequest());
     try {
+      const orderStructure = {
+        orderId: uuidv4(),
+        amount: orderData.totalPrice,
+        email: orderData.client.email,
+        name: orderData.client.name,
+        address: orderData.client.address,
+        payment: orderData.client.payment,
+        delivery: 'UPS',
 
-      let res = await axios.post(`${API_URL}/api/orders`, order);
+      };
+
+      let res = await axios.post(`${API_URL}/api/orders`, orderStructure);
       dispatch(purchase(res));
       dispatch(endRequest());
 
     } catch(e) {
       dispatch(errorRequest(e.message));
     }
-
   };
 };
 

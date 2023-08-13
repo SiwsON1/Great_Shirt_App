@@ -89,18 +89,18 @@ const Cart = () => {
             ) : (
               <div>No products in cart</div>
             )}
-            <div className="boder-2 border-top mt-3 py-3">
+            <div className="border-2 border-top mt-3 py-3">
               {
                 totalProductsInCart === 0
                 ? "No products yet, don't be afraid to add some"
                 : `${totalProductsInCart} ${totalProductsInCart === 1 ? 'Product' : 'Products'} in Cart`
               }
             </div>
-            <div className="boder-2 border-top mt-3 py-3">
+            <div className="border-2 border-top mt-3 px-3">
              Total Price: <span className="text-secondary"><Currency value={totalCartValue} /></span>
             </div>
             {totalProductsInCart > 0 && (
-              <Button onClick={proceedToCheckout} >Pay</Button>
+              <Button onClick={proceedToCheckout} >Proceed To Checkout</Button>
             )}
           </Stack>
         </Offcanvas.Body>

@@ -73,7 +73,7 @@ const ProductInCart = ({ product }) => {
       <div>{product.name}</div>
 
       <div>
-        <Currency value={product.price} />
+        <Currency value={product.price* quantity} />
       </div>
     </Stack>
   </Container>

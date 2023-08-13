@@ -21,6 +21,7 @@ export class OrdersService {
   public async create(
     orderData: Omit<Order, 'orderId' | 'createdAt' | 'updatedAt'>,
   ): Promise<Order> {
+    console.log(orderData);
     try {
       return await this.prismaService.order.create({
         data: orderData,

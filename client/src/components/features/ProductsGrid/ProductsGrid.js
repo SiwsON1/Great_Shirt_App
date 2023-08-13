@@ -9,7 +9,7 @@ const ProductsGrid = ({prod}) => {
   return (
     <Row xs={1} md={2} lg={3}>
       {prod.map(p =>
-        <Col key={p._id}>
+        <Col key={p.id}>
             <ProductSummary {...p} />
         </Col>
         )}

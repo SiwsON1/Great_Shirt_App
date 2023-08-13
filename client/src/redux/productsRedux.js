@@ -6,14 +6,15 @@ export const getProducts = ({products}) => products.data;
 export const getProductById = (state, id) => {
   return state.products.data.find(x => x.id === id);
 };
+export const addUserStars = payload => ({ type: ADD_USER_STARS, payload });
 // actions
 const createActionName = actionName => `app/products/${actionName}`;
 
 const START_REQUEST = createActionName('START_REQUEST');
 const END_REQUEST = createActionName('END_REQUEST');
 const ERROR_REQUEST = createActionName('ERROR_REQUEST');
-
 const LOAD_PRODUCTS = createActionName('LOAD_PRODUCTS');
+const ADD_USER_STARS = createActionName('ADD_USER_STARS');
 
 export const startRequest = payload => ({ payload, type: START_REQUEST });
 export const endRequest = payload => ({ payload, type: END_REQUEST });
@@ -42,6 +43,15 @@ const productsRedux = (statePart = initialState, action = {}) => {
       return { ...statePart, requests: { ...statePart.requests, [action.payload.name]: { pending: false, error: null, success: true }} };
     case ERROR_REQUEST:
       return { ...statePart, requests: { ...statePart.requests, [action.payload.name]: { pending: false, error: action.payload.error, success: false }} };
+      case ADD_USER_STARS:
+      return {
+        ...statePart,
+        data: statePart.data.map(product =>
+          product.id === action.payload.id
+            ? { ...product, userStars: action.payload.userStars }
+            : product
+        )
+      };
     default:
       return statePart;
   };

@@ -10,7 +10,7 @@ import { getOrders } from '../../../redux/orderRedux';
 import { useSelector } from 'react-redux';
 import { getProductById } from '../../../redux/productsRedux';
 import { v4 as uuidv4 } from 'uuid';
-
+import { useNavigate } from 'react-router-dom';
 
 const ProductSummary = ({ name, description, id, image, price }) => {
 
@@ -20,6 +20,7 @@ const ProductSummary = ({ name, description, id, image, price }) => {
 
     const product = useSelector((state) => getProductById(state, id));
     const orders = useSelector(getOrders);
+    const navigate = useNavigate();
 
     const handleMouseEnter = () => {
       setIsHovered(true);
@@ -31,9 +32,8 @@ const ProductSummary = ({ name, description, id, image, price }) => {
   const handleClick = () => {
     <Navigate to="/" />;
   };
-
-  const viewHandler = () =>{
-  <Navigate to={"/product/" + id} />;
+  const viewHandler = () => {
+    navigate(`/product/${id}`);
   }
 
   const orderHandler = (e) => {
@@ -43,14 +43,13 @@ const ProductSummary = ({ name, description, id, image, price }) => {
 
   return (
     <div
-      onClick={handleClick}
+     // onClick={handleClick}
       className="container bg-white group cursor-pointer rounded-3 border p-3 my-4"
     >
       <div className="ratio ratio-1x1 rounded-3 bg-gray-100 relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
   <img
     src={`./images/products/${image}`}
     alt=""
-    fill
     style={{objectFit: "cover"}}
     className="ratio ratio-1x1 img-fluid rounded-2"
   />

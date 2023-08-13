@@ -118,7 +118,6 @@ function getProducts() {
     },
   ];
 }
-
 function getOrders() {
   return [
     {
@@ -162,13 +161,19 @@ async function seed() {
   );
 
   await Promise.all(
-    getOrders().map(({ productId, ...orderData }) => {
-      return db.order.create({
+    getOrders().map((order) => {
+      const { productId, ...orderData } = order;
+      return db.order.create({ data: orderData });
+    }),
+  );
+  await Promise.all(
+    getOrders().map((order) => {
+      const { productId, orderId, ...orderData } = order;
+      return db.orderItem.create({
         data: {
-          ...orderData,
-          product: {
-            connect: { id: productId },
-          },
+          quantity: 1, // lub dowolna inna ilość, którą chcesz ustawić
+          orderId: orderId,
+          productId: productId,
         },
       });
     }),

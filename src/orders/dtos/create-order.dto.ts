@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 
 export class OrderDTO {
   @IsNotEmpty()
@@ -29,12 +36,4 @@ export class OrderDTO {
   @IsString()
   @IsNotEmpty()
   delivery: string;
-
-  @IsNotEmpty()
-  @IsUUID()
-  @IsString()
-  productId: string;
-
-  @IsNotEmpty()
-  products: object[];
 }

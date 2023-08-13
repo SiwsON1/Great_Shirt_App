@@ -31,17 +31,8 @@ model Product {
   updatedAt  DateTime @updatedAt
 }
 
-model OrderItem {
-  id         String  @id @default(uuid())
-  quantity   Int     
-  order      Order   @relation(fields: [orderId], references: [orderId])
-  orderId    String
-  product    Product @relation(fields: [productId], references: [id])
-  productId  String
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
+
 model Order {
   orderId    String      @id @unique @default(uuid())
   amount     Int
@@ -50,7 +41,19 @@ model Order {
   address    String
   payment    String
   delivery   String
-  orderItems OrderItem[]  // Nowa relacja
+  orderItems OrderItem[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model OrderItem {
+  id         String  @id @default(uuid())
+  quantity   Int
+  order      Order   @relation(fields: [orderId], references: [orderId])
+  orderId    String
+  product    Product @relation(fields: [productId], references: [id])
+  productId  String
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

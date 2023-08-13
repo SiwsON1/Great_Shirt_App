@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addToCart } from '../../../redux/orderRedux';
 import { useEffect } from 'react';
+import ProductRating from '../../features/ProductRating/ProductRating';
+import Currency from '../../features/Currency/Currency'
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -15,8 +17,7 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [mainImageSrc, setMainImageSrc] = useState(null);
-
-
+  const [thumbnailImages, setThumbnailImages] = useState([]);
 
   const handleIncrement = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -29,17 +30,46 @@ const orderHandler = (e) => {
 const handleDecrement = () => {
   setQuantity(prevQuantity => prevQuantity > 1 ? prevQuantity - 1 : prevQuantity);
 }
-const changeImage = (src) => {
-  setMainImageSrc(src);
-};
+
 useEffect(() => {
-  if (product && product.image) {
-      setMainImageSrc(`../images/products/${product.image}`);
+  if (product) {
+    setMainImageSrc(`../images/products/${product.image}`);
   }
 }, [product]);
 
+const changeImage = (clickedImageSrc, clickedIndex) => {
+  if (clickedImageSrc === mainImageSrc) return;
+
+  let newThumbnails = [...thumbnailImages];
+  newThumbnails[clickedIndex] = mainImageSrc;
+
+  setMainImageSrc(clickedImageSrc);
+  setThumbnailImages(newThumbnails);
+};
+
+
+useEffect(() => {
+  if (product) {
+    const mainImgSrc = `../images/products/${product.image}`;
+    setMainImageSrc(mainImgSrc);
+
+    const allImages = [
+      mainImgSrc,
+      `../images/products/${product.imageTop}`,
+      `../images/products/${product.imageBottom}`,
+      `../images/products/${product.imageLeft}`,
+      `../images/products/${product.imageRight}`
+    ];
+
+    const filteredImages = allImages.filter(src => src !== mainImgSrc);
+    setThumbnailImages(filteredImages.slice(0, 4)); // Zwraca maksymalnie cztery miniaturki
+  }
+}, [product]);
+
+
+
   if (!product) {
-    return <div>Loading...</div>; // lub inny komponent / wiadomość, który chcesz wyświetlić w tym przypadku
+    return <div>Loading...</div>;
   }
   return (
 
@@ -55,53 +85,19 @@ useEffect(() => {
             />
           </div>
           <div className={styles.thumbnail_images}>
-            <ul id="thumbnail">
-              <li>
-                <img
-                  onClick={() => changeImage(`../images/products/${product.imageTop}`)}
-                  src={`../images/products/${product.imageTop}`}
-                  width="70"
-                  alt={product.name}
-                />
-              </li>
-              <li>
-                <img
-                  onClick={() => changeImage(`../images/products/${product.imageBottom}`)}
-                  src={`../images/products/${product.imageBottom}`}
-                  width="70"
-                  alt={product.name}
-                />
-              </li>
-              <li>
-                <img
-                  onClick={() => changeImage(`../images/products/${product.imageLeft}`)}
-                  src={`../images/products/${product.imageLeft}`}
-                  width="70"
-                  alt={product.name}
-                />
-              </li>
-              <li>
-                <img
-                  onClick={() => changeImage(`../images/products/${product.imageRight}`)}
-                  src={`../images/products/${product.imageRight}`}
-                  width="70"
-                  alt={product.name}
-                />
-              </li>
-                {
-            mainImageSrc !== null && mainImageSrc !== `../images/products/${product.image}` && (
-              <li>
-                <img
-                  onClick={() => changeImage(`../images/products/${product.image}`)}
-                  src={`../images/products/${product.image}`}
-                  width="70"
-                  alt={product.name}
-                />
-              </li>
-            )
-          }
-            </ul>
-          </div>
+      <ul id="thumbnail">
+        {thumbnailImages.map((src, index) => (
+          <li key={index}>
+            <img
+               onClick={() => changeImage(src, index)}
+              src={src}
+              width="70"
+              alt={product.name}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
         </div>
       </div>
       <div className="col-md-6">
@@ -109,52 +105,50 @@ useEffect(() => {
           <div className="d-flex justify-content-center">
             <h3>{product.name}</h3>
           </div>
-          <div className="mt-2 pr-3">
+          <div className="d-flex justify-content-between mt-3 align-items-center">
+          <div className="d-flex align-items-center gap-1">
+            <strong className="mr-2">Price: </strong>
+            <Currency value={product.price} />
+          </div>
+          <ProductRating id={id} name={product.name} stars={product.rating} />
+        </div>
+          <div className="mt-3 pr-3">
             <p className={styles.description}>
-              {product.description}
+            Product details
             </p>
+            {product.description}
           </div>
-          <h3>$430.99</h3>
-          <div className={`d-flex flex-row align-items-center ${styles.ratings}`}>
-            <div className="d-flex flex-row">
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-                <Star />
-            </div>
-          </div>
-          <div className="row mt-3 mb-3">
+          <div className="row mt-3 mb-3 border-bottom border-dark" >
                     <div className="row mb-2">
                     <div className="col-3">
-                        Type:
+                      <span className="fw-bold">Type:</span>
                     </div>
                     <div className="col-9">
-                        "t-shirt"
+                        {product.type}
                     </div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-3">
-                        Color:
+                        <span className="fw-bold">Color:</span>
                     </div>
                     <div className="col-9">
-                        "white"
+                    {product.color}
                     </div>
                 </div>
                 <div className="row mb-2">
                     <div className="col-3">
-                        Material:
+                        <span className="fw-bold">Material:</span>
                     </div>
                     <div className="col-9">
-                        "cotton"
+                        {product.material}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-3">
-                        Brand:
+                        <span className="fw-bold">Brand:</span>
                     </div>
                     <div className="col-9">
-                        "Nike"
+                        {product.brand}
                     </div>
                 </div>
                 </div>
