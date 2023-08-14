@@ -1,8 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../../redux/productsRedux';
-import { Star } from 'lucide-react';
 import styles from './SingleProduct.module.scss';
-import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addToCart } from '../../../redux/orderRedux';

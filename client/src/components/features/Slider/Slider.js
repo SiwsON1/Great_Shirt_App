@@ -1,7 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import styles from './Slider.module.scss';
-import Button from 'react-bootstrap/Button';
 import img1 from './1.jpg'
 import img2 from './2.jpg'
 import img3 from './3.jpg'

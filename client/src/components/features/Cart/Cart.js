@@ -13,7 +13,9 @@ import { getTotalCartValue } from "../../../redux/orderRedux";
 import styles from './Cart.module.scss';
 import ProductInCart from "../ProductsInCart/ProductsInCart";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import { loadCartFromStorage } from "../../../redux/orderRedux";
+import { saveCartToStorage } from "../../../redux/orderRedux";
 const Cart = () => {
   const dispatch = useDispatch();
 
@@ -38,7 +40,15 @@ const Cart = () => {
     navigate('/order');
 }
 
+useEffect(() => {
+  // Wczytaj koszyk z localStorage gdy komponent jest montowany
+  dispatch(loadCartFromStorage());
+}, [dispatch]);
 
+useEffect(() => {
+  // Zapisz koszyk do localStorage za każdym razem, gdy ulega zmianie
+  dispatch(saveCartToStorage());
+}, [productsInCart, dispatch]);
 
   return (
     <>

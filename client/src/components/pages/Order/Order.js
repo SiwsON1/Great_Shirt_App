@@ -5,16 +5,15 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  getOnlyProductsInCart,
   getTotalCartValue,
   getCart,
 } from '../../../redux/orderRedux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { IMGS_URL } from '../../../config';
 import { v4 as uuidv4 } from 'uuid';
 import { purchaseRequest } from '../../../redux/orderRedux';
 import Currency from '../../features/Currency/Currency';
+import { clearCart } from '../../../redux/orderRedux';
 
 const Order = () => {
   const dispatch = useDispatch();
@@ -60,6 +59,7 @@ const Order = () => {
         id: uuidv4(),
       }),
     );
+    dispatch(clearCart());
     navigate('/thanksPage');
   };
 

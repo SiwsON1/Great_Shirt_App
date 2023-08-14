@@ -13,8 +13,8 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 60%; // możesz dostosować tę wartość według potrzeb
-        background-color: rgba(0, 0, 0, 0.8); // półprzezroczyste tło dla napisów
+        right: 60%;
+        background-color: rgba(0, 0, 0, 0.8);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -35,7 +35,7 @@
         button {
             background-color: white;
             opacity: 0.75;
-            border: none; // usuwa domyślne obramowanie przycisku bootstrap
+            border: none;
 
             &:hover {
                 opacity: 1;
@@ -54,7 +54,7 @@
 
     .actionText {
         text-decoration: underline;
-        cursor: pointer;  // jeśli tekst ma być klikalny
-        font-weight: bold;  // pogrubienie tekstu
+        cursor: pointer; 
+        font-weight: bold;
     }
 }

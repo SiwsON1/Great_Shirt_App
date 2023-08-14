@@ -50,18 +50,18 @@ body {
 
 .inputGroup{
   border-radius: 5px;
-  overflow: hidden; // Ukrywa wszelkie "wystające" elementy poza zaokrąglonymi rogami
+  overflow: hidden; 
 
   .btn {
-      border-radius: 0; // Usuwa zaokrąglenie rogów przycisków wewnątrz grupy
-      border: 1px solid #ced4da; // Standardowy kolor obramowania dla Bootstrapa
+      border-radius: 0;
+      border: 1px solid #ced4da;
 
       &:hover {
-          background-color: #e9ecef; // Subtelny kolor tła przy najechaniu
+          background-color: #e9ecef;
       }
 
       &:active, &:focus {
-          background-color: #dee2e6; // Trochę ciemniejszy kolor tła dla aktywnego stanu
+          background-color: #dee2e6;
       }
   }
 }
@@ -74,4 +74,3 @@ body {
   font-size: 16px;
   font-weight: bold;
 }
-

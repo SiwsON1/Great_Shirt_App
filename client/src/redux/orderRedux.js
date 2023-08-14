@@ -21,7 +21,19 @@ export const getOnlyProductsInCart = (state) => state.order.cart.map(cart => car
 export const getOnlyProductsInCartAmount = (state) => state.order.cart.map(cart => cart.amount);
 export const getTotalProductsInCart = (state) => state.order.cart.reduce((acc, order) => acc + order.amount, 0);
 export const getTotalCartValue = (state) => state.order.cart.reduce((acc, order) => acc + order.product.price * order.amount, 0);
+export const saveCartToStorage = () => (dispatch, getState) => {
+  const cart = getState().order.cart; // Dostosuj do struktury swojego stanu
+  localStorage.setItem('userCart', JSON.stringify(cart));
+};
 
+export const loadCartFromStorage = () => (dispatch) => {
+  const savedCart = localStorage.getItem('userCart');
+  if (savedCart) {
+      const parsedCart = JSON.parse(savedCart);
+      dispatch(setCartFromStorage(parsedCart));
+  }
+};
+export const clearCart = () => ({type: CLEAR_CART});
 
 export const removeFromCart = (productId) => ({ type: REMOVE_FROM_CART, payload: productId });
 
@@ -35,6 +47,10 @@ export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = error => ({ error, type: ERROR_REQUEST });
 export const purchase = payload => ({ payload, type: PURCHASE });
+export const setCartFromStorage = (cart) => ({
+  type: SET_CART_FROM_STORAGE,
+  payload: cart
+});
 
 const createActionName = actionName => `app/order/${actionName}`;
 
@@ -50,6 +66,9 @@ const START_REQUEST = createActionName('START_REQUEST');
 const END_REQUEST = createActionName('END_REQUEST');
 const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 const PURCHASE = createActionName('PURCHASE');
+const SET_CART_FROM_STORAGE = 'SET_CART_FROM_STORAGE';
+const CLEAR_CART = createActionName('CLEAR_CART');
+
 /* THUNKS */
 
 export const purchaseRequest = (orderData) => {
@@ -64,7 +83,7 @@ export const purchaseRequest = (orderData) => {
         name: orderData.client.name,
         address: orderData.client.address,
         payment: orderData.client.payment,
-        delivery: 'UPS',
+        delivery: orderData.client.delivery,
 
       };
 
@@ -143,7 +162,14 @@ const orderRedux = (statePart = initialState, action) => {
       case ERROR_REQUEST:
         return { ...statePart, request: { pending: false, error: action.error, success: false } };
         case PURCHASE:
-        return { ...statePart, order: [...statePart.order, action.payload] }
+        return { ...statePart, order: [...statePart.order, action.payload] };
+        case SET_CART_FROM_STORAGE:
+          return {
+              ...statePart,
+              cart: action.payload
+          };
+          case CLEAR_CART:
+    return { ...statePart, cart: [] };
         default:
           return statePart;
 };
