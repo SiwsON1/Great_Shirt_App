@@ -248,6 +248,7 @@ const Order = () => {
                 {...register('payment', { required: true })}
                 as="select"
                 value={payment}
+                className={styles.inputShort}
                 onChange={(e) => setPayment(e.target.value)}
               >
                 <option value="">Select Payment method</option>
@@ -333,7 +334,7 @@ const Order = () => {
                 />
                 <div>
                   <p>DPD Pick-up Point</p>
-                  <div className="position-absolute top-55 end-0 translate-middle-y">
+                  <div className="position-absolute top-55 end-0 translate-middle-y d-none d-lg-block">
                     <img
                       src={`../images/logos/dpd.png`}
                       alt="DPD Icon"
@@ -360,7 +361,7 @@ const Order = () => {
                 />
                 <div>
                   <p>DPD</p>
-                  <div className="position-absolute top-55 end-0 translate-middle-y">
+                  <div className="position-absolute top-55 end-0 translate-middle-y d-none d-lg-block">
                     <img
                       src={`../images/logos/dpd.png`}
                       alt="DPD Icon"
@@ -386,7 +387,7 @@ const Order = () => {
                 />
                 <div>
                   <p>UPS Standard</p>
-                  <div className="position-absolute top-55 end-0 translate-middle-y">
+                  <div className="position-absolute top-55 end-0 translate-middle-y d-none d-lg-block">
                     <img
                       src={`../images/logos/ups.png`}
                       alt="UPS Icon"
@@ -412,7 +413,7 @@ const Order = () => {
                 />
                 <div>
                   <p>Polish Post Parcel48 with delivery to the customer</p>
-                  <div className="position-absolute top-55 end-0 translate-middle-y">
+                  <div className="position-absolute top-55 end-0 translate-middle-y d-none d-lg-block">
                     <img
                       src={`../images/logos/pp.png`}
                       alt="PP Icon"

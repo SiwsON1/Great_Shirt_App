@@ -14,7 +14,7 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Navbar.Brand>
+            <Navbar.Brand className="d-none d-lg-block">
                 <Image className={styles.logo} src={logo} alt="logo" height={40} />
             </Navbar.Brand>
           </Nav>
