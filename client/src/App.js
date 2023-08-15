@@ -22,6 +22,7 @@ function App() {
 
 
   return (
+    <>
       <Container>
         <Header />
          <CartLayout />
@@ -31,8 +32,10 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/thankYouPage" element={<ThankYouPage />} />
         </Routes>
-        <Footer />
+
     </Container>
+    <Footer />
+    </>
   );
 }
 

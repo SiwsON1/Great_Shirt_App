@@ -118,7 +118,7 @@ function getProducts() {
     },
   ];
 }
-function getOrders() {
+/* function getOrders() {
   return [
     {
       orderId: '01c7599d-318b-4b9f-baf7-51f3a936a1d0',
@@ -151,7 +151,7 @@ function getOrders() {
       delivery: 'DHL',
     },
   ];
-}
+} */
 
 async function seed() {
   await Promise.all(
@@ -160,7 +160,7 @@ async function seed() {
     }),
   );
 
-  await Promise.all(
+  /*   await Promise.all(
     getOrders().map((order) => {
       const { productId, ...orderData } = order;
       return db.order.create({ data: orderData });
@@ -171,13 +171,13 @@ async function seed() {
       const { productId, orderId, ...orderData } = order;
       return db.orderItem.create({
         data: {
-          quantity: 1, // lub dowolna inna ilość, którą chcesz ustawić
+          quantity: 1,
           orderId: orderId,
           productId: productId,
         },
       });
     }),
-  );
+  ); */
 }
 
 seed();

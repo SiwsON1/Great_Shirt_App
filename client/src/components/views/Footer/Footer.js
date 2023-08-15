@@ -4,8 +4,8 @@ import { Instagram, Twitter, Facebook } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className={`bg-secondary shadow-sm mb-3 ${styles.footer}`}>
-            <Container>
+        <footer className={`bg-secondary shadow-sm mt-3 w-100 ${styles.footer}`}>
+            <Container fluid>
                 <Row className={styles.footerTop}>
                     <Col md={4} className={styles.brand}>
                         <h3>StreetShop</h3>
