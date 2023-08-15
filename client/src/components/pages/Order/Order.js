@@ -4,10 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  getTotalCartValue,
-  getCart,
-} from '../../../redux/orderRedux';
+import { getTotalCartValue, getCart } from '../../../redux/orderRedux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,7 +35,7 @@ const Order = () => {
 
   const totalPrice = useSelector(getTotalCartValue);
   //const comment = useSelector(getComment)
-  console.log(cartProducts);
+  console.log('produkty w koszyku', cartProducts);
 
   const handleSubmit = () => {
     dispatch(
@@ -68,15 +65,16 @@ const Order = () => {
       <Form className={styles.form} onSubmit={validate(handleSubmit)}>
         <Col className={styles.formCol} lg={7}>
           <h3>Contact Details</h3>
-
           <Row>
             <Col lg={12}>
               <Form.Label>E-MAIL</Form.Label>
               <Form.Control
                 {...register('email', {
-                  required: true,
-                  minLength: 3,
-                  maxLength: 50,
+                  required: 'You have to use a valid email',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: 'You have to use a valid email',
+                  },
                 })}
                 className={styles.input}
                 value={email}
@@ -85,18 +83,27 @@ const Order = () => {
               />
               {errors.email && (
                 <small className="d-block form-text text-danger mt-2">
-                  You have to use valid email
+                  {errors.email.message}
                 </small>
               )}
             </Col>
-
             <Col lg={4}>
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 {...register('name', {
-                  required: true,
-                  minLength: 3,
-                  maxLength: 25,
+                  required: 'Please enter your first name',
+                  minLength: {
+                    value: 3,
+                    message: 'First name should be at least 3 characters long',
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: 'First name should not exceed 25 characters',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z\s]+$/,
+                    message: 'First name can only contain letters and spaces',
+                  },
                 })}
                 className={styles.inputShort}
                 value={name}
@@ -105,18 +112,27 @@ const Order = () => {
               />
               {errors.name && (
                 <small className="d-block form-text text-danger mt-2">
-                  Please enter your first name
+                  {errors.name.message}
                 </small>
               )}
             </Col>
-
             <Col lg={8}>
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 {...register('surname', {
-                  required: true,
-                  minLength: 3,
-                  maxLength: 40,
+                  required: 'Please enter your last name',
+                  minLength: {
+                    value: 3,
+                    message: 'Last name should be at least 3 characters long',
+                  },
+                  maxLength: {
+                    value: 40,
+                    message: 'Last name should not exceed 40 characters',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z\s]+$/,
+                    message: 'Last name can only contain letters and spaces',
+                  },
                 })}
                 className={styles.inputLong}
                 value={surname}
@@ -125,7 +141,7 @@ const Order = () => {
               />
               {errors.surname && (
                 <small className="d-block form-text text-danger mt-2">
-                  Please enter your last name
+                  {errors.surname.message}
                 </small>
               )}
             </Col>
@@ -133,9 +149,20 @@ const Order = () => {
           <Form.Label>Address</Form.Label>
           <Form.Control
             {...register('address', {
-              required: true,
-              minLength: 3,
-              maxLength: 50,
+              required: 'Please fill in your address',
+              minLength: {
+                value: 3,
+                message: 'Address should be at least 3 characters long',
+              },
+              maxLength: {
+                value: 50,
+                message: 'Address should not exceed 50 characters',
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9\s.,-]+$/,
+                message:
+                  'Address can contain only letters, numbers, spaces, dots, commas, and hyphens',
+              },
             })}
             className={styles.input}
             value={address}
@@ -144,7 +171,7 @@ const Order = () => {
           />
           {errors.address && (
             <small className="d-block form-text text-danger mt-2">
-              Please fill in your address
+              {errors.address.message}
             </small>
           )}
 
@@ -153,9 +180,20 @@ const Order = () => {
               <Form.Label>Post Code</Form.Label>
               <Form.Control
                 {...register('code', {
-                  required: true,
-                  minLength: 3,
-                  maxLength: 8,
+                  required: 'Please fill in your Post Code',
+                  minLength: {
+                    value: 3,
+                    message: 'Post Code should be at least 3 characters long',
+                  },
+                  maxLength: {
+                    value: 8,
+                    message: 'Post Code should not exceed 8 characters',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9\s-]+$/,
+                    message:
+                      'Please provide valid post code',
+                  },
                 })}
                 className={styles.inputShort}
                 value={code}
@@ -164,18 +202,28 @@ const Order = () => {
               />
               {errors.code && (
                 <small className="d-block form-text text-danger mt-2">
-                  Please fill in your Post Code
+                  {errors.code.message}
                 </small>
               )}
             </Col>
-
             <Col lg={8}>
               <Form.Label>City</Form.Label>
               <Form.Control
                 {...register('city', {
-                  required: true,
-                  minLength: 2,
-                  maxLength: 50,
+                  required: 'Please fill in your city',
+                  minLength: {
+                    value: 2,
+                    message: 'City name should be at least 2 characters long',
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: 'City name should not exceed 50 characters',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z\s\-']+$/,
+                    message:
+                      'Please provide valid City',
+                  },
                 })}
                 className={styles.inputLong}
                 value={city}
@@ -184,7 +232,7 @@ const Order = () => {
               />
               {errors.city && (
                 <small className="d-block form-text text-danger mt-2">
-                  Please fill in your city
+                  {errors.city.message}
                 </small>
               )}
             </Col>
@@ -219,7 +267,7 @@ const Order = () => {
           </Row>
         </Col>
         <Col lg={5}>
-          <h3>Podsumowanie</h3>
+          <h3>Summary</h3>
           {cartProducts.map((prod) => (
             <Col key={prod.product.id} className={styles.summary} lg={12}>
               <Row className={styles.summaryCol}>
@@ -241,7 +289,9 @@ const Order = () => {
                   {prod.product.name}
                 </Col>
                 <Col lg={2}>{prod.amount}</Col>
-                <Col lg={2}><Currency value={prod.amount * prod.product.price}/></Col>
+                <Col lg={2}>
+                  <Currency value={prod.amount * prod.product.price} />
+                </Col>
               </Row>
             </Col>
           ))}
@@ -367,7 +417,7 @@ const Order = () => {
 
               {errors.deliveryOption && (
                 <small className="d-block form-text text-danger mt-2">
-                  The shipping itself will take 2 days.
+                  Please choose shipping method
                 </small>
               )}
             </div>

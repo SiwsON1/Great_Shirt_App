@@ -3,7 +3,7 @@ export declare class ProductsController {
     private productsService;
     constructor(productsService: ProductsService);
     getAll(): any;
-    getById(id: string): Promise<import("@prisma/client/runtime").GetResult<{
+    getById(id: string): Promise<{
         id: string;
         name: string;
         price: number;
@@ -20,5 +20,5 @@ export declare class ProductsController {
         brand: string;
         createdAt: Date;
         updatedAt: Date;
-    }, unknown> & {}>;
+    }>;
 }

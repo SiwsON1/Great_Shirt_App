@@ -5,5 +5,5 @@ export declare class OrdersService {
     constructor(prismaService: PrismaService);
     getAll(): Promise<Order[]>;
     getById(orderId: Order['orderId']): Promise<Order | null>;
-    create(orderData: Omit<Order, 'orderId' | 'createdAt' | 'updatedAt'>): Promise<Order>;
+    create(orderData: any): Promise<Order>;
 }

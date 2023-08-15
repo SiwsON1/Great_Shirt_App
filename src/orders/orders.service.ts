@@ -18,18 +18,26 @@ export class OrdersService {
     });
   }
 
-  public async create(
-    orderData: Omit<Order, 'orderId' | 'createdAt' | 'updatedAt'>,
-  ): Promise<Order> {
-    console.log(orderData);
+  public async create(orderData): Promise<Order> {
+    const { orderItems, ...otherData } = orderData;
     try {
       return await this.prismaService.order.create({
-        data: orderData,
+        data: {
+          ...otherData,
+          orderItems: {
+            create: orderItems, // Używamy "create" tutaj!
+          },
+        },
+        include: {
+          orderItems: {
+            include: { product: true },
+          },
+        },
       });
     } catch (error) {
-      if (error.code === 'P2002') {
-        throw new ConflictException('Order already exist');
-      }
+      if (error.code === 'P2025')
+        throw new ConflictException("Product doesn't exist");
+      throw error;
     }
   }
 }

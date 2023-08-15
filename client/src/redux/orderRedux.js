@@ -76,9 +76,17 @@ const CLEAR_CART = createActionName('CLEAR_CART');
 /* THUNKS */
 
 export const purchaseRequest = (orderData) => {
+  console.log('orderData',orderData);
+
   return async (dispatch) => {
     dispatch(startRequest());
     try {
+      const orderItems = orderData.products.map(product => ({
+        quantity: product.amount,
+        productId: product.product.id
+
+      }));
+      console.log('to co w orderItems',orderItems);
       const orderStructure = {
         orderId: uuidv4(),
         amount: orderData.totalPrice,
@@ -87,6 +95,7 @@ export const purchaseRequest = (orderData) => {
         address: orderData.client.address,
         payment: orderData.client.payment,
         delivery: orderData.client.delivery,
+        orderItems: orderItems
       };
 
       let res = await axios.post(`${API_URL}/api/orders`, orderStructure);

@@ -9,17 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderDTO = void 0;
+exports.OrderDTO = exports.OrderItemDTO = void 0;
 const class_validator_1 = require("class-validator");
-class OrderDTO {
+class OrderItemDTO {
 }
-exports.OrderDTO = OrderDTO;
+exports.OrderItemDTO = OrderItemDTO;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
-], OrderDTO.prototype, "orderId", void 0);
+], OrderItemDTO.prototype, "productId", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], OrderItemDTO.prototype, "quantity", void 0);
+class OrderDTO {
+}
+exports.OrderDTO = OrderDTO;
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -50,4 +58,9 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], OrderDTO.prototype, "delivery", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    __metadata("design:type", Array)
+], OrderDTO.prototype, "orderItems", void 0);
 //# sourceMappingURL=create-order.dto.js.map

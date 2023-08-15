@@ -7,11 +7,22 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-export class OrderDTO {
+export class OrderItemDTO {
   @IsNotEmpty()
   @IsString()
   @IsUUID()
-  orderId: string;
+  productId: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  quantity: number;
+}
+
+export class OrderDTO {
+  //@IsNotEmpty()
+  //@IsString()
+  // @IsUUID()
+  //orderId: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -36,4 +47,8 @@ export class OrderDTO {
   @IsString()
   @IsNotEmpty()
   delivery: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  orderItems: OrderItemDTO[];
 }

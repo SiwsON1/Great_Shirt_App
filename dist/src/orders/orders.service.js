@@ -27,16 +27,26 @@ let OrdersService = exports.OrdersService = class OrdersService {
         });
     }
     async create(orderData) {
-        console.log(orderData);
+        const { orderItems, ...otherData } = orderData;
         try {
             return await this.prismaService.order.create({
-                data: orderData,
+                data: {
+                    ...otherData,
+                    orderItems: {
+                        create: orderItems,
+                    },
+                },
+                include: {
+                    orderItems: {
+                        include: { product: true },
+                    },
+                },
             });
         }
         catch (error) {
-            if (error.code === 'P2002') {
-                throw new common_1.ConflictException('Order already exist');
-            }
+            if (error.code === 'P2025')
+                throw new common_1.ConflictException("Product doesn't exist");
+            throw error;
         }
     }
 };
