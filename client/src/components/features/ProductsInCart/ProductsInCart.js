@@ -11,6 +11,7 @@ import { removeFromCart } from '../../../redux/orderRedux';
 import { Modal } from 'react-bootstrap';
 import Button from "react-bootstrap/Button";
 import { updateCart } from '../../../redux/orderRedux';
+import { addNoteToProduct } from '../../../redux/orderRedux';
 
 const ProductInCart = ({ product }) => {
     const amount = useSelector(state => getProductAmountInCart(state, product.id));
@@ -32,10 +33,9 @@ const ProductInCart = ({ product }) => {
         dispatch(removeFromCart(productId));
     }
     const handleConfirmNote = () => {
-        console.log('Notatka dodana:', currentNote);
-        handleCloseModal();
-        
-      };
+      dispatch(addNoteToProduct(product.id, currentNote));
+      handleCloseModal();
+  };
 
       const handleDecrement = () => {
         setQuantity(prevQuantity => {

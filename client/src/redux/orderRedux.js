@@ -46,6 +46,10 @@ export const getProductAmountInCart = (state, productId) => {
   const item = state.order.cart.find((item) => item.product.id === productId);
   return item ? item.amount : 0;
 };
+export const getNoteFromCartById = (state, productId) => {
+  const productInCart = state.order.cart.find(p => p.product.id === productId);
+  return productInCart ? productInCart.note : '';
+};
 export const updateCart = (payload) => ({ payload, type: UPDATE_CART });
 export const checkout = (payload) => ({ payload, type: CHECKOUT });
 export const startRequest = () => ({ type: START_REQUEST });
@@ -55,6 +59,10 @@ export const purchase = (payload) => ({ payload, type: PURCHASE });
 export const setCartFromStorage = (cart) => ({
   type: SET_CART_FROM_STORAGE,
   payload: cart,
+});
+export const addNoteToProduct = (productId, note) => ({
+  type: ADD_NOTE_TO_PRODUCT,
+  payload: { productId, note },
 });
 
 const createActionName = (actionName) => `app/order/${actionName}`;
@@ -72,6 +80,7 @@ const ERROR_REQUEST = createActionName('ERROR_REQUEST');
 const PURCHASE = createActionName('PURCHASE');
 const SET_CART_FROM_STORAGE = 'SET_CART_FROM_STORAGE';
 const CLEAR_CART = createActionName('CLEAR_CART');
+export const ADD_NOTE_TO_PRODUCT = createActionName('ADD_NOTE_TO_PRODUCT');
 
 /* THUNKS */
 
@@ -197,9 +206,20 @@ const orderRedux = (statePart = initialState, action) => {
       };
     case CLEAR_CART:
       return { ...statePart, cart: [] };
+      case ADD_NOTE_TO_PRODUCT: {
+        return {
+          ...statePart,
+          cart: statePart.cart.map(item =>
+            item.product.id === action.payload.productId
+              ? { ...item, note: action.payload.note }
+              : item
+          ),
+        };
+      }
     default:
       return statePart;
   }
+
 };
 
 export default orderRedux;

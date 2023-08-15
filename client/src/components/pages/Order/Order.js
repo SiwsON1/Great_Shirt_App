@@ -11,10 +11,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { purchaseRequest } from '../../../redux/orderRedux';
 import Currency from '../../features/Currency/Currency';
 import { clearCart } from '../../../redux/orderRedux';
+import { getNoteFromCartById } from '../../../redux/orderRedux';
 
 const Order = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartProducts = useSelector(getCart);
+   const state = useSelector(state => state);
+  const cartProductsComments = cartProducts.map(prod => getNoteFromCartById(state, prod.product.id));
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -31,10 +35,9 @@ const Order = () => {
     formState: { errors },
   } = useForm();
 
-  const cartProducts = useSelector(getCart);
+
 
   const totalPrice = useSelector(getTotalCartValue);
-  //const comment = useSelector(getComment)
   console.log('produkty w koszyku', cartProducts);
 
   const handleSubmit = () => {
@@ -268,23 +271,28 @@ const Order = () => {
         </Col>
         <Col lg={5}>
           <h3>Summary</h3>
-          {cartProducts.map((prod) => (
-            <Col key={prod.product.id} className={styles.summary} lg={12}>
-              <Row className={styles.summaryCol}>
-                <Col lg={3}>
-                  <div className={styles.image}>
-                    <img
-                      src={`../images/products/${prod.product.image}`}
-                      alt={prod.product.name}
-                      width={100}
-                      height={100}
-                      style={{
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                      }}
-                    />
-                  </div>
-                </Col>
+          {cartProducts.map((prod, index) => (
+  <Col key={prod.product.id} className={styles.summary} lg={12}>
+    <Row className={styles.summaryCol}>
+      <Col lg={3}>
+        <div className={styles.imageContainer}>
+          <img
+            className={styles.productImage}
+            src={`../images/products/${prod.product.image}`}
+            alt={prod.product.name}
+            width={100}
+            height={100}
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+          />
+          {/* Comment is now absolutely positioned */}
+          <div className={styles.comment}>
+            {cartProductsComments[index]}
+          </div>
+        </div>
+      </Col>
                 <Col className={styles.title} lg={5}>
                   {prod.product.name}
                 </Col>
