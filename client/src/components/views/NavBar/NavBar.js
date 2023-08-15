@@ -19,8 +19,8 @@ const NavBar = () => {
             </Navbar.Brand>
           </Nav>
           <Nav>
-          <Nav.Link href="/aboutUsPage">O nas</Nav.Link>
-            <Nav.Link href="/delivery">Dostawa</Nav.Link>
+          <Nav.Link href="/aboutUsPage">About US</Nav.Link>
+            <Nav.Link href="/delivery">Delivery</Nav.Link>
             <NavbarActions />
           </Nav>
         </Navbar.Collapse>

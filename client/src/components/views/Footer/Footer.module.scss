@@ -1,0 +1,48 @@
+.footer {
+    padding: 40px 0;
+    background-color: #FFF8D6;
+    color: #b1b1b1;
+
+    a {
+        color: #b1b1b1;
+        &:hover {
+            text-decoration: none;
+            color: #ffffff;
+        }
+    }
+
+    h3, h4 {
+        margin-bottom: 20px;
+        color: #ffffff;
+    }
+
+    .footerTop {
+        margin-bottom: 30px;
+    }
+
+    .brand {
+        p {
+            max-width: 250px;
+            font-size: 14px;
+        }
+    }
+
+    .socialIcons {
+        display: flex;
+    }
+
+    .icon {
+        color: white;
+        font-size: 24px;
+        margin-right: 10px;
+
+        &:hover {
+            color: gray;
+        }
+    }
+
+    .footerBottom {
+        text-align: center;
+        font-size: 12px;
+    }
+}

@@ -11,9 +11,6 @@ import { removeFromCart } from '../../../redux/orderRedux';
 import { Modal } from 'react-bootstrap';
 import Button from "react-bootstrap/Button";
 import { updateCart } from '../../../redux/orderRedux';
-import { useEffect } from 'react';
-import { loadCartFromStorage } from '../../../redux/orderRedux';
-import { saveCartToStorage } from '../../../redux/orderRedux';
 
 const ProductInCart = ({ product }) => {
     const amount = useSelector(state => getProductAmountInCart(state, product.id));
@@ -37,7 +34,7 @@ const ProductInCart = ({ product }) => {
     const handleConfirmNote = () => {
         console.log('Notatka dodana:', currentNote);
         handleCloseModal();
-        // Tutaj możesz też przekazać notatkę do store Redux lub gdziekolwiek indziej
+        
       };
 
       const handleDecrement = () => {
@@ -55,7 +52,7 @@ const ProductInCart = ({ product }) => {
         });
     }
 
-  
+
     return (
         <Stack key={product.id} direction="horizontal" className="d-flex align-items-center justify-content-center">
                   <Stack >

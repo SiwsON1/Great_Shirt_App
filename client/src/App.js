@@ -11,7 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CartLayout from "./components/features/Cart/Cart";
 import SingleProduct from "./components/pages/SingleProduct/SingleProduct";
 import Order from "./components/pages/Order/Order";
-
+import ThankYouPage from "./components/pages/ThankYouPage/ThankYouPage";
+import Footer from "./components/views/Footer/Footer";
 function App() {
   const dispatch = useDispatch();
 
@@ -28,7 +29,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<SingleProduct />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/thankYouPage" element={<ThankYouPage />} />
         </Routes>
+        <Footer />
     </Container>
   );
 }

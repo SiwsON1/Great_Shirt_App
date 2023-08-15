@@ -9,19 +9,19 @@ const Slider = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const slideTexts = [
         {
-            title: "Moda Streetwear",
-            description: "Najnowsze trendy ulicznej mody.",
-            actionText: "Sprawdź już teraz!"
+            title: "Streetwear Fashion",
+            description: "The latest street fashion trends",
+            actionText: "Check it out now!"
         },
         {
-            title: "Nowości sezonu",
-            description: "Odkryj najnowsze kolekcje.",
-            actionText: "Zobacz kolekcję!"
+            title: "Season's New Arrivals",
+            description: "Discover the latest collections.",
+            actionText: "View the collection!"
         },
         {
-            title: "Przeceny",
-            description: "Najlepsze okazje w jednym miejscu.",
-            actionText: "Przejrzyj oferty!"
+            title: "Sale",
+            description: "The best deals in one place.",
+            actionText: "Browse the offers!"
         }
     ];
     return (
@@ -31,21 +31,21 @@ const Slider = () => {
                 <img
                     className="d-block w-100 "
                     src={img1}
-                    alt="T-shirt"
+                    alt="Streetwear"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className="d-block w-100"
                     src={img2}
-                    alt="Lenses"
+                    alt="New Arrivals"
                 />
             </Carousel.Item>
             <Carousel.Item>
                 <img
                     className="d-block w-100"
                     src={img3}
-                    alt="Accessories"
+                    alt="Sale"
                 />
             </Carousel.Item>
         </Carousel>

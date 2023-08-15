@@ -60,14 +60,14 @@ const Order = () => {
       }),
     );
     dispatch(clearCart());
-    navigate('/thanksPage');
+    navigate('/thankYouPage');
   };
 
   return (
     <div className={styles.container}>
       <Form className={styles.form} onSubmit={validate(handleSubmit)}>
         <Col className={styles.formCol} lg={7}>
-          <h3>Dane Kontaktowe</h3>
+          <h3>Contact Details</h3>
 
           <Row>
             <Col lg={12}>
@@ -85,13 +85,13 @@ const Order = () => {
               />
               {errors.email && (
                 <small className="d-block form-text text-danger mt-2">
-                  Uzupełnij swój adres e-mail
+                  You have to use valid email
                 </small>
               )}
             </Col>
 
             <Col lg={4}>
-              <Form.Label>Imię*</Form.Label>
+              <Form.Label>First Name</Form.Label>
               <Form.Control
                 {...register('name', {
                   required: true,
@@ -105,13 +105,13 @@ const Order = () => {
               />
               {errors.name && (
                 <small className="d-block form-text text-danger mt-2">
-                  Uzupełnij swoje imię
+                  Please enter your first name
                 </small>
               )}
             </Col>
 
             <Col lg={8}>
-              <Form.Label>Nazwisko*</Form.Label>
+              <Form.Label>Last Name</Form.Label>
               <Form.Control
                 {...register('surname', {
                   required: true,
@@ -125,12 +125,12 @@ const Order = () => {
               />
               {errors.surname && (
                 <small className="d-block form-text text-danger mt-2">
-                  Uzupełnij swoje nazwisko
+                  Please enter your last name
                 </small>
               )}
             </Col>
           </Row>
-          <Form.Label>Adres*</Form.Label>
+          <Form.Label>Address</Form.Label>
           <Form.Control
             {...register('address', {
               required: true,
@@ -144,13 +144,13 @@ const Order = () => {
           />
           {errors.address && (
             <small className="d-block form-text text-danger mt-2">
-              Uzupełnij swój adres
+              Please fill in your address
             </small>
           )}
 
           <Row>
             <Col lg={4}>
-              <Form.Label>Kod pocztowy*</Form.Label>
+              <Form.Label>Post Code</Form.Label>
               <Form.Control
                 {...register('code', {
                   required: true,
@@ -164,13 +164,13 @@ const Order = () => {
               />
               {errors.code && (
                 <small className="d-block form-text text-danger mt-2">
-                  Uzupełnij kod pocztowy
+                  Please fill in your Post Code
                 </small>
               )}
             </Col>
 
             <Col lg={8}>
-              <Form.Label>Miasto*</Form.Label>
+              <Form.Label>City</Form.Label>
               <Form.Control
                 {...register('city', {
                   required: true,
@@ -184,7 +184,7 @@ const Order = () => {
               />
               {errors.city && (
                 <small className="d-block form-text text-danger mt-2">
-                  Uzupełnij miasto
+                  Please fill in your city
                 </small>
               )}
             </Col>
@@ -249,7 +249,7 @@ const Order = () => {
           <Col lg={12}>
             <Row className={styles.totalAmount}>
               <Col className={styles.infoPrice} lg={6}>
-                Kwota zamówienia:
+                Order amount:
               </Col>
               <Col className={styles.total} lg={6}>
                 <Currency value={totalPrice} />
@@ -258,7 +258,7 @@ const Order = () => {
           </Col>
           <Stack>
             <div className="mb-3 mt-2">
-              <h5>Wybierz sposób dostawy</h5>
+              <h5>Please choose delivery method</h5>
               <label
                 className="form-check  border-top position-relative d-block"
                 htmlFor="DpdSelfPick"
@@ -274,7 +274,7 @@ const Order = () => {
                   onChange={(e) => setDeliveryOption(e.target.value)}
                 />
                 <div>
-                  <p>DPD Odbiór w punkcie</p>
+                  <p>DPD Pick-up Point</p>
                   <div className="position-absolute top-55 end-0 translate-middle-y">
                     <img
                       src={`../images/logos/dpd.png`}
@@ -282,7 +282,7 @@ const Order = () => {
                       className={styles.carrierIcon}
                     />
                   </div>
-                  <p>Sam transport zajmie 2 dni</p>
+                  <p>The shipping itself will take 2 days</p>
                 </div>
               </label>
 
@@ -309,7 +309,7 @@ const Order = () => {
                       className={styles.carrierIcon}
                     />
                   </div>
-                  <p>Sam transport zajmie 2 dni</p>
+                  <p>The shipping itself will take 2 days</p>
                 </div>
               </label>
               <label
@@ -335,7 +335,7 @@ const Order = () => {
                       className={styles.carrierIconUps}
                     />
                   </div>
-                  <p>Sam transport zajmie 2 dni</p>
+                  <p>The shipping itself will take 2 days</p>
                 </div>
               </label>
               <label
@@ -353,7 +353,7 @@ const Order = () => {
                   onChange={(e) => setDeliveryOption(e.target.value)}
                 />
                 <div>
-                  <p>Poczta Polska Paczka48 z dostawą do klienta</p>
+                  <p>Polish Post Parcel48 with delivery to the customer</p>
                   <div className="position-absolute top-55 end-0 translate-middle-y">
                     <img
                       src={`../images/logos/pp.png`}
@@ -361,13 +361,13 @@ const Order = () => {
                       className={styles.carrierIcon}
                     />
                   </div>
-                  <p>Sam transport zajmie 4 dni</p>
+                  <p>The shipping itself will take 4 days</p>
                 </div>
               </label>
 
               {errors.deliveryOption && (
                 <small className="d-block form-text text-danger mt-2">
-                  Proszę wybrać sposób dostawy.
+                  The shipping itself will take 2 days.
                 </small>
               )}
             </div>
